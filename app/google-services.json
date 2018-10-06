@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "859862964653",
+    "firebase_url": "https://kaiwin-5.firebaseio.com",
+    "project_id": "kaiwin-5",
+    "storage_bucket": "kaiwin-5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859862964653:android:af5301bfa8f88bca",
+        "android_client_info": {
+          "package_name": "com.kaiwin.squirreldeliver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859862964653-7649b0i8ne9jldhrf64cugfln6nn9ft2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxM--6Dlf7Ayc5NPC372mGGCpOG2g6UNA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

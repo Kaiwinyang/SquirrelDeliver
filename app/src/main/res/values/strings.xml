@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">外松鼠</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="please_type_your_password">請輸入登錄密碼</string>
+    <string name="login_title">外送鼠</string>>
+    <string name="login">請輸入用戶名</string>
+    <string name="btn_login">登錄</string>
+    <string name="register">註冊</string>
+    <string name="title_activity_login">請登入</string>
+
+    <string name="invalid_email_input">郵件格式不正確</string>
+    <string name="empty_input">郵箱和密碼不可為空</string>
+    <string name="email_not_verified">郵箱未驗證，請進入郵箱點擊驗證鏈接</string>
+
+    <string name="shared_preferences_XML_file_name">shared_preferences_XML_file_name</string>>
+
+    <!-- 註冊相關-->
+    <string name="resgister_title">註冊</string>
+    <string name="resgister_editText_username">請輸入用戶名</string>
+    <string name="resgister_editText_password">請輸入密碼</string>
+    <string name="resgister_editText_password_repeat">請再次輸入密碼</string>
+    <string name="resgister_editText_email">請輸入email</string>
+    <string name="resgister_editText_phone">請輸入電話</string>
+    <string name="title_activity_user">用户使用界面</string>
+    <string name="password_is_different">兩次密碼不同</string>
+    <string name="password_should_be_at_least_6_characters">密碼至少要6個字符</string>
+    <string name="email_verification_has_been_sent">註冊郵件已經發送</string>
+    <string name="sending_mail_error_occurred">發送郵件時發生錯誤</string>
+    <string name="register_success">註冊成功</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">设定</string>
+    <string name="title_activity_major">主要界面</string>
+    <string name="nav_header_title">Title</string>
+    <string name="nav_header_subtitle">\@email</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+
+    <!-- app_bar_major.xml relative -->
+    <string name="About">其他</string>
+    <string name="Other1">条约</string>
+    <string name="Logout">登出</string>
+    <string name="change_icon">換頭像</string>
+    <string name="history_orders">歷史訂單</string>
+    <string name="personal_info">個人信息</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Create Deliver Task Fragment relative -->
+
+    <string name="Create_Deliver_Task_Fragment_Title">發起訂單</string>
+    <string name="confirm_order">確認訂單</string>
+    <string name="phone_of_consignor">寄件人手机</string>
+    <string name="name_of_consignor">寄件人名称</string>
+    <string name="phone_of_consignee">收件人手机</string>
+    <string name="name_of_consignee">收件人姓名</string>
+    <string name="type_of_order">订单类型</string>
+    <string name="fragile_article">易碎品</string>
+    <string name="food">食品</string>
+    <string name="bale">小型貨物(20X30X20)</string>
+    <string name="address_for_delivery">送件地址</string>
+    <string name="delivery_time">送貨時間</string>
+    <string name="description">詳細描述 : 訂單類型（下拉式）= ...(TODO: 添加內容)</string>
+</resources>
