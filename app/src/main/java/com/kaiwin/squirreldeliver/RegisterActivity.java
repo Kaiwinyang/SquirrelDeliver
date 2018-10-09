@@ -106,11 +106,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         });
                 break;
             default:
-                Log.w("uu", "default");
+                Log.e(Tool.logTag, "default");
         }
 
 
-        //Log.i(view.getTag().toString() + "has been pressed.", "Click Event");
+        Log.v(Tool.logTag, "Click Event");
     }
 
 
