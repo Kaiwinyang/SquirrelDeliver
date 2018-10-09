@@ -93,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 //Toast.makeText(getApplicationContext(), R.string.register_success, Toast.LENGTH_SHORT)
                                 //       .show();
                                 new AlertDialog.Builder(this)
+                                        .setIcon(R.drawable.squirrel)
                                         .setTitle(R.string.register_success)
                                         .setMessage(R.string.register_success_content)
                                         .setPositiveButton("OK", (dialog, which) ->
@@ -112,11 +113,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         });
                 break;
             default:
-                Log.e(Tool.logTag, "default");
+                Log.e(Tool.TAG, "default");
         }
 
 
-        Log.v(Tool.logTag, "Click Event");
+        Log.v(Tool.TAG, "Click Event");
     }
 
 
