@@ -90,19 +90,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 mAuth.createUserWithEmailAndPassword(email, pwd)
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
-                                //Toast.makeText(getApplicationContext(), R.string.register_success, Toast.LENGTH_SHORT)
-                                //       .show();
+                                sendEmailVerification(mAuth.getCurrentUser());
                                 new AlertDialog.Builder(this)
                                         .setIcon(R.drawable.squirrel)
                                         .setTitle(R.string.register_success)
                                         .setMessage(R.string.register_success_content)
-                                        .setPositiveButton("OK", (dialog, which) ->
-                                                startActivity(new Intent(this, LoginActivity.class)
-                                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                )
+                                        .setPositiveButton("OK", (dialog, w) -> {
+                                                    startActivity(new Intent(this, LoginActivity.class)
+                                                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                    );
+                                                    finish();
+                                                }
                                         )
                                         .show();
-                                sendEmailVerification(mAuth.getCurrentUser());
                             } else {
                                 Snackbar.make(btnRegister, task.getException().toString(), Snackbar.LENGTH_LONG).show();
                                 new AlertDialog.Builder(this)
