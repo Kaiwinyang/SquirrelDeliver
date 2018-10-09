@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         textVeiwMsg = (TextView) findViewById(R.id.textVeiwMsg);
         passwordEditText = (EditText) findViewById(R.id.PasswordEditText);
-        loginEditText = (EditText) findViewById(R.id.loginEditText);
+        loginEditText = (EditText) findViewById(R.id.usernameEditText);
         repeatEditText = (EditText) findViewById(R.id.RepeatEditText);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         phoneEditText = (EditText) findViewById(R.id.phoneEditText);

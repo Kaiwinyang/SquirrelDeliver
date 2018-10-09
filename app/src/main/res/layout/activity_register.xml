@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 
         <EditText
             android:id="@+id/PasswordEditText"
@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
         <EditText
-            android:id="@+id/loginEditText"
+            android:id="@+id/usernameEditText"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:layout_marginStart="8dp"

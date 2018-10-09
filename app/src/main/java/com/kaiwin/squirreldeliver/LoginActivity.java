@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegsiter);
         textView = findViewById(R.id.textVeiwMsg);
 
-        usernameText = findViewById(R.id.loginEditText);
+        usernameText = findViewById(R.id.usernameEditText);
         passwordText = findViewById(R.id.PasswordEditText);
 
         btnRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
