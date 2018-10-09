@@ -36,10 +36,11 @@ dependencies {
 
 
     // Fire Base requires
-    implementation 'com.google.firebase:firebase-core:16.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
 
     //Add the dependency for Firebase Authentication to your app-level build.gradle file:
-    implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.3'
 
 }
 
