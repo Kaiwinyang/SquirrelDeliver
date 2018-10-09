@@ -99,7 +99,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             } else {
                                 Snackbar.make(btnRegsiter, task.getException().toString(), Snackbar.LENGTH_LONG).show();
                                 new AlertDialog.Builder(this)
-                                        .setTitle("ERROR").setMessage(task.getException().toString())
+                                        .setTitle("ERROR")
+                                        .setMessage(task.getException().toString())
                                         .show();
                             }
                         });
