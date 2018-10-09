@@ -27,6 +27,7 @@
     <string name="email_verification_has_been_sent">註冊郵件已經發送</string>
     <string name="sending_mail_error_occurred">發送郵件時發生錯誤</string>
     <string name="register_success">註冊成功</string>
+    <string name="register_success_content">請進入郵箱，點擊確認連接</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
