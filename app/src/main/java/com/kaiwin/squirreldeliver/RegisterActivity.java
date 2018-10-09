@@ -1,6 +1,8 @@
 package com.kaiwin.squirreldeliver;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,22 +99,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                );
                                sendEmailVerification(mAuth.getCurrentUser());
                            }else {
-                               Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT)
-                                       .show();
-                               textVeiwMsg.setText(task.getException().toString());
+                               Snackbar.make(btnRegsiter,task.getException().toString(),Snackbar.LENGTH_LONG).show();
+                               new AlertDialog.Builder(this)
+                                       .setTitle("ERROR").setMessage(task.getException().toString())
+                               .show();
                            }
                         });
-
-//                List<EditText> list = Tool.getAllEditText(this);
-//
-//                String txt = new String();
-//                for (EditText et : list)
-//                    txt += et.getHint().toString() + ":" + et.getText() + "\n";
-//
-//                Toast.makeText(getApplicationContext(), txt, Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Log.w("default", "default");
+                Log.w("uu", "default");
         }
 
 
