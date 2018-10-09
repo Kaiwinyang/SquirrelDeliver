@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText repeatEditText;
     private EditText emailEditText;
     private EditText phoneEditText;
-    private Button banRegister;
+    private Button btnRegister;
 
     // End Of Content View Elements
 
@@ -42,9 +42,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         repeatEditText = (EditText) findViewById(R.id.RepeatEditText);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         phoneEditText = (EditText) findViewById(R.id.phoneEditText);
-        banRegister = (Button) findViewById(R.id.btnRegsiter);
+        btnRegister = (Button) findViewById(R.id.btnRegsiter);
 
-        banRegister.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 );
                                 sendEmailVerification(mAuth.getCurrentUser());
                             } else {
-                                Snackbar.make(banRegister, task.getException().toString(), Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(btnRegister, task.getException().toString(), Snackbar.LENGTH_LONG).show();
                                 new AlertDialog.Builder(this)
                                         .setTitle("ERROR")
                                         .setMessage(task.getException().toString())
