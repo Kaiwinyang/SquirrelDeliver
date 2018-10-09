@@ -22,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     // Content View Elements
 
-    private TextView textVeiwMsg;
+    private TextView textViewMsg;
     private EditText passwordEditText;
     private EditText loginEditText;
     private EditText repeatEditText;
@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void bindViews() {
 
-        textVeiwMsg = (TextView) findViewById(R.id.textVeiwMsg);
+        textViewMsg = (TextView) findViewById(R.id.textVeiwMsg);
         passwordEditText = (EditText) findViewById(R.id.PasswordEditText);
         loginEditText = (EditText) findViewById(R.id.usernameEditText);
         repeatEditText = (EditText) findViewById(R.id.RepeatEditText);
@@ -127,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (!task.isSuccessful()) {
                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT)
                         .show();
-                textVeiwMsg.setText(task.getException().toString());
+                textViewMsg.setText(task.getException().toString());
             }
         });
     }
