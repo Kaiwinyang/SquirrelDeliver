@@ -119,7 +119,7 @@ public class MajorActivity extends AppCompatActivity
         int notificationID = 15;
 
         //PendingIntent
-        Intent intent = new Intent().setClass(this, SettingsActivity.class);
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
 
         PendingIntent pendingIntent = PendingIntent
                 .getActivity(getApplicationContext(), notificationID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -134,20 +134,28 @@ public class MajorActivity extends AppCompatActivity
                 .setAutoCancel(true);
 
         if (!isNetworkConnected()) {
-            for (int i = 0; i < 100; i++) {
-                notificationManager.notify(notificationID, builder.setProgress(100, i, false).build());
+//            new Thread(() -> {
+//                for (int i = 0; i < 100; i++) {
+//                    notificationManager.notify(notificationID, builder.setProgress(100, i, false).build());
+//
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (Exception e) {
+//                        Log.v(Tool.TAG, "100ms");
+//                    }
+//                }
+//
+//                builder.setProgress(0, 0, false);
+//                builder.setFullScreenIntent(null, false);
+//                notificationManager.notify(notificationID, builder.build());
+//            }).start();
 
-                try {
-                    Thread.sleep(100);
-                } catch (Exception e) {
-                    Log.v(Tool.TAG, "100ms");
-                }
-            }
-
-            builder.setProgress(0, 00, false);
-            builder.setFullScreenIntent(null, false);
+            //show head up notification
             notificationManager.notify(notificationID, builder.build());
 
+            //hide head up notification
+            builder.setFullScreenIntent(null, false);
+            notificationManager.notify(notificationID, builder.build());
         }
 
         Log.v(Tool.TAG, "notify");
