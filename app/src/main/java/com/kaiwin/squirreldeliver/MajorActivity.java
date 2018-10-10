@@ -122,7 +122,7 @@ public class MajorActivity extends AppCompatActivity
         Intent intent = new Intent(Settings.ACTION_SETTINGS);
 
         PendingIntent pendingIntent = PendingIntent
-                .getActivity(getApplicationContext(), notificationID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                .getActivity(getApplicationContext(), notificationID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         builder
                 .setSmallIcon(R.drawable.poop)
