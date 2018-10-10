@@ -3,9 +3,15 @@ package com.kaiwin.squirreldeliver;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
@@ -105,22 +111,56 @@ public class MajorActivity extends AppCompatActivity
             NotificationChannel channel =
                     new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
 
-
             notificationManager.createNotificationChannel(channel);
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
-        builder.setSmallIcon(R.drawable.poop)
+        int notificationID = 15;
+
+        //PendingIntent
+        Intent intent = new Intent().setClass(this, SettingsActivity.class);
+
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(getApplicationContext(), notificationID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder
+                .setSmallIcon(R.drawable.poop)
                 .setColor(0XFF)
-                .setContentTitle("Title Example")
-                .setContentText("ContentText Example")
-                //.setDefaults(Notification.DEFAULT_VIBRATE)
-                .setCategory(Notification.CATEGORY_MESSAGE)
+                .setContentTitle("請連接網路")
+                .setContentText("提示")
+                .setFullScreenIntent(pendingIntent, true)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
-        notificationManager.notify(1, builder.build());
+        if (!isNetworkConnected()) {
+            for (int i = 0; i < 100; i++) {
+                notificationManager.notify(notificationID, builder.setProgress(100, i, false).build());
+
+                try {
+                    Thread.sleep(100);
+                } catch (Exception e) {
+                    Log.v(Tool.TAG, "100ms");
+                }
+            }
+
+            builder.setProgress(0, 00, false);
+            builder.setFullScreenIntent(null, false);
+            notificationManager.notify(notificationID, builder.build());
+
+        }
+
         Log.v(Tool.TAG, "notify");
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            return mNetworkInfo.isAvailable();
+        }
+        return false;
     }
 
 
