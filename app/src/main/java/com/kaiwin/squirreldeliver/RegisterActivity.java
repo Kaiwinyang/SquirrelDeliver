@@ -58,32 +58,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         bindViews();
 
         mAuth = FirebaseAuth.getInstance();
-        myNotify();
-    }
-
-    private void myNotify(){
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        final String CHANNEL_ID = "channel_id_1";
-        final String CHANNEL_NAME = "channel_name_1";
-
-        //Android O request
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            NotificationChannel channel =
-                    new NotificationChannel(CHANNEL_ID,CHANNEL_NAME,NotificationManager.IMPORTANCE_HIGH);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID);
-
-        builder
-                .setSmallIcon(R.drawable.poop)
-                .setContentTitle("Title Example")
-                .setContentText("ContentText Example")
-                .setAutoCancel(true);
-
-        notificationManager.notify(0,builder.build());
-        Log.v(Tool.TAG,"notify");
     }
 
     @Override

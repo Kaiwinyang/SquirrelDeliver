@@ -1,9 +1,14 @@
 package com.kaiwin.squirreldeliver;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -86,13 +91,43 @@ public class MajorActivity extends AppCompatActivity
         usernameTextViewAtHeader = navigationViewHeader.findViewById(R.id.usernameTextViewAtHeader);
         emailTextViewAtHeader = navigationViewHeader.findViewById(R.id.emailTextViewAtHeader);
         initHeader();
+
+    }
+
+    private void myNotify() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        final String CHANNEL_ID = "channel_id_1";
+        final String CHANNEL_NAME = "channel_name_1";
+
+        //Android O request
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel =
+                    new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+
+
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+
+        builder.setSmallIcon(R.drawable.poop)
+                .setColor(0XFF)
+                .setContentTitle("Title Example")
+                .setContentText("ContentText Example")
+                //.setDefaults(Notification.DEFAULT_VIBRATE)
+                .setCategory(Notification.CATEGORY_MESSAGE)
+                .setAutoCancel(true);
+
+        notificationManager.notify(1, builder.build());
+        Log.v(Tool.TAG, "notify");
     }
 
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-
+        myNotify();
     }
 
     /*后退键*/
@@ -173,6 +208,6 @@ public class MajorActivity extends AppCompatActivity
         usernameTextViewAtHeader.setText(username);
         emailTextViewAtHeader.setText(email);
 
-        Log.v("Banana","initHeader");
+        Log.v("Banana", "initHeader");
     }
 }
