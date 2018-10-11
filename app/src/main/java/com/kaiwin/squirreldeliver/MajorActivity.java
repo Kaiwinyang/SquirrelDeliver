@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
@@ -33,7 +34,13 @@ import com.google.firebase.auth.FirebaseUser;
 public class MajorActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //加號按鈕
+    FloatingActionButton fab;
+
+
     CreateDeliverTaskFragment createDeliverTaskFragment;
+    UserInformationFragment userInformationFragment = new UserInformationFragment();
+
     NavigationView navigationView;
     View navigationViewHeader;
 
@@ -75,23 +82,18 @@ public class MajorActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //加號按鈕
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_button);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.major_fragment, createDeliverTaskFragment);
-                transaction.commit();
+        fab = (FloatingActionButton) findViewById(R.id.fab_add_button);
+        fab.setOnClickListener(
+                (View) -> {
+                    //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    replaceFragment(createDeliverTaskFragment);
+                    fab.hide();
 
-                view.setVisibility(View.GONE);
-
-                MenuItem menuItemChecked = navigationView.getCheckedItem();
-                if (menuItemChecked != null) menuItemChecked.setChecked(false);
-            }
-        });
-
+                    MenuItem menuItemChecked = navigationView.getCheckedItem();
+                    if (menuItemChecked != null) menuItemChecked.setChecked(false);
+                }
+        );
+        replaceFragment(userInformationFragment);
 
         navigationViewHeader = navigationView.getHeaderView(0);
         userIconImageView = navigationViewHeader.findViewById(R.id.userIconImageView);
@@ -225,7 +227,7 @@ public class MajorActivity extends AppCompatActivity
         } else if (id == R.id.nav_history_orders) {
 
         } else if (id == R.id.nav_personal_info) {
-
+            replaceFragment(userInformationFragment);
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_share) {
@@ -259,5 +261,13 @@ public class MajorActivity extends AppCompatActivity
         emailTextViewAtHeader.setText(email);
 
         Log.v(Tool.TAG, "initHeader");
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.major_fragment, fragment)
+                .commit();
+        fab.show();
     }
 }
