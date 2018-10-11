@@ -116,16 +116,14 @@ public class MajorActivity extends AppCompatActivity
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
 
-        int notificationID = 15;
-
         //PendingIntent
         Intent intent = new Intent(Settings.ACTION_SETTINGS);
 
+        int notificationID = 15;
         PendingIntent pendingIntent = PendingIntent
                 .getActivity(getApplicationContext(), notificationID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        builder
-                .setSmallIcon(R.drawable.poop)
+        builder.setSmallIcon(R.drawable.poop)
                 .setColor(0XFF)
                 .setContentTitle("請連接網路")
                 .setContentText("提示")
@@ -156,9 +154,11 @@ public class MajorActivity extends AppCompatActivity
             //hide head up notification
             builder.setFullScreenIntent(null, false);
             notificationManager.notify(notificationID, builder.build());
+
+            Log.v(Tool.TAG, "notify");
         }
 
-        Log.v(Tool.TAG, "notify");
+
     }
 
     private boolean isNetworkConnected() {
