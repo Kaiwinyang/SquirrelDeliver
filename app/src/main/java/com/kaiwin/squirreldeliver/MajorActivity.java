@@ -83,8 +83,10 @@ public class MajorActivity extends AppCompatActivity
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.major_fragment, createDeliverTaskFragment);
+                transaction.add(R.id.major_fragment, createDeliverTaskFragment);
                 transaction.commit();
+
+                view.setVisibility(View.GONE);
 
                 MenuItem menuItemChecked = navigationView.getCheckedItem();
                 if (menuItemChecked != null) menuItemChecked.setChecked(false);
