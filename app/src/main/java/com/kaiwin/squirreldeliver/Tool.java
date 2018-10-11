@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Tool {
-    public static String TAG = "Squirrel";
+    public static String TAG = "Banana";
 
     public static boolean isEmail(String email) {
         if (null == email || "".equals(email)) return false;

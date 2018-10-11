@@ -256,6 +256,6 @@ public class MajorActivity extends AppCompatActivity
         usernameTextViewAtHeader.setText(username);
         emailTextViewAtHeader.setText(email);
 
-        Log.v("Banana", "initHeader");
+        Log.v(Tool.TAG, "initHeader");
     }
 }
