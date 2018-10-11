@@ -129,6 +129,7 @@ public class MajorActivity extends AppCompatActivity
                 .setContentText("提示")
                 .setFullScreenIntent(pendingIntent, true)
                 .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setAutoCancel(true);
 
         if (!isNetworkConnected()) {
