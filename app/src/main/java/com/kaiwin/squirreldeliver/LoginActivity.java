@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null && currentUser.isEmailVerified())
             startActivity(new Intent(this, MajorActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+            overridePendingTransition(0,0);//cancel Transition Animation
 
         btnLogin.setOnClickListener(v -> {
             String username = usernameText.getText().toString().trim();
