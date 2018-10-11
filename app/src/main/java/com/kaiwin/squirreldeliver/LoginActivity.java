@@ -2,9 +2,9 @@ package com.kaiwin.squirreldeliver;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser != null && currentUser.isEmailVerified())
             startActivity(new Intent(this, MajorActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-            overridePendingTransition(0,0);//cancel Transition Animation
+        overridePendingTransition(0, 0);//cancel Transition Animation
 
         btnLogin.setOnClickListener(v -> {
             String username = usernameText.getText().toString().trim();
@@ -86,15 +86,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailVerified() {
-        FirebaseUser user  = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
         if (!user.isEmailVerified()) {
-            Snackbar.make(btnLogin,R.string.email_not_verified,Snackbar.LENGTH_LONG).show();
+            Snackbar.make(btnLogin, R.string.email_not_verified, Snackbar.LENGTH_LONG).show();
             //Toast.makeText(this, R.string.email_not_verified, Toast.LENGTH_SHORT).show();
             user.sendEmailVerification().addOnCompleteListener(
                     task -> {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(this, R.string.email_verification_has_been_sent, Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             Toast.makeText(this, R.string.sending_mail_error_occurred, Toast.LENGTH_SHORT).show();
                         }
                     }
