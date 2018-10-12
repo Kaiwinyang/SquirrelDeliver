@@ -221,6 +221,7 @@ public class MajorActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        navigationView.setCheckedItem(item);
 
         if (id == R.id.nav_change_icon) {
 
