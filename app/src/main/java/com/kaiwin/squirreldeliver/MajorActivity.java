@@ -128,8 +128,8 @@ public class MajorActivity extends AppCompatActivity
 
         builder.setSmallIcon(R.drawable.poop)
                 .setColor(0XFF)
-                .setContentTitle("請連接網路")
-                .setContentText("提示")
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_content_text))
                 .setFullScreenIntent(pendingIntent, true)
                 .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
@@ -216,27 +216,29 @@ public class MajorActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        navigationView.setCheckedItem(item);
 
         if (id == R.id.nav_change_icon) {
 
         } else if (id == R.id.nav_history_orders) {
 
         } else if (id == R.id.nav_personal_info) {
+            //navigationView.setCheckedItem(R.id.nav_personal_info);
             replaceFragment(userInformationFragment);
+
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
             mAuth.signOut();
             startActivity(new Intent(this, LoginActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+
         }
 
         /*关闭侧滑菜单*/
