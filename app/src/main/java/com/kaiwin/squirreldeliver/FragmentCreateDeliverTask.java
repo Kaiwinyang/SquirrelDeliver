@@ -3,7 +3,6 @@ package com.kaiwin.squirreldeliver;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -25,16 +24,17 @@ public class FragmentCreateDeliverTask extends Fragment {
     public final static String TAG = "FragmentCreateDeliverTask";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     Button buttonComfirm;
     RadioGroup radioGroup;
     TextInputEditText textInputEditTextFromName, textInputEditTextFromPhone;
     TextInputEditText textInputEditTextToName, textInputEditTextToPhone;
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     public FragmentCreateDeliverTask() {
         // Required empty public constructor
@@ -92,19 +92,19 @@ public class FragmentCreateDeliverTask extends Fragment {
         buttonComfirm.setOnClickListener(
                 view -> {
                     RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
-                    String str ;
+                    String str;
 
-                    if (radioBtnSelected ==null)
+                    if (radioBtnSelected == null)
                         str = getString(R.string.please_select_at_least_one_button_in_radio_button_group);
                     else
                         str = textInputEditTextFromPhone.getText().toString() + "\n"
-                            + textInputEditTextFromName.getText().toString() + "\n"
-                            + textInputEditTextToPhone.getText().toString() + "\n"
-                            + textInputEditTextToName.getText().toString() + "\n"
-                            + radioBtnSelected.getText().toString();
+                                + textInputEditTextFromName.getText().toString() + "\n"
+                                + textInputEditTextToPhone.getText().toString() + "\n"
+                                + textInputEditTextToName.getText().toString() + "\n"
+                                + radioBtnSelected.getText().toString();
 
                     new AlertDialog.Builder(activity).setMessage(str).setCancelable(false)
-                            .setPositiveButton(R.string.confirm_order,null)
+                            .setPositiveButton(R.string.confirm_order, null)
                             .create().show();
                 }
         );
