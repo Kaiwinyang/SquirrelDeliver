@@ -41,6 +41,8 @@ public class FragmentCreateDeliverTask extends Fragment {
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    Tool tool = new Tool();
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -97,15 +99,13 @@ public class FragmentCreateDeliverTask extends Fragment {
 
         radioGroup = activity.findViewById(R.id.radioGroupInFragment);
 
-        Tool tool = new Tool();
-
         buttonComfirm = activity.findViewById(R.id.confirm_button);
         buttonComfirm.setOnClickListener(
                 view -> {
-                    if (tool.isClicked) {
-                        return;
-                    }
-                    tool.isClicked = true;
+                    if (tool.isClicked.get()) return;
+
+                    tool.isClicked.set(true);
+                    view.setClickable(false);
 
                     RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
 
@@ -144,7 +144,6 @@ public class FragmentCreateDeliverTask extends Fragment {
                             .addOnSuccessListener(task ->
                                     new AlertDialog
                                             .Builder(activity)
-                                            .setIcon(R.drawable.poop)
                                             .setMessage(R.string.order_upload_success)
                                             .setPositiveButton(R.string.OK, null)
                                             .setCancelable(false)
@@ -167,7 +166,6 @@ public class FragmentCreateDeliverTask extends Fragment {
 
                         new AlertDialog
                                 .Builder(activity)
-                                .setIcon(R.drawable.poop)
                                 .setTitle(R.string.order_upload_failed)
                                 .setMessage(R.string.upload_time_out)
                                 .setPositiveButton(R.string.OK, null)
@@ -177,7 +175,8 @@ public class FragmentCreateDeliverTask extends Fragment {
                     } catch (InterruptedException e) {
                     }
 
-                    tool.isClicked = false;
+                    tool.isClicked.set(false);
+                    view.setClickable(true);
                 }
         );
     }

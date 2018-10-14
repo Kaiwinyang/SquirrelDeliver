@@ -9,13 +9,14 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Tool {
     public static String TAG = "Banana";
 
-    boolean isClicked = false;
+    public AtomicBoolean isClicked = new AtomicBoolean(false);
 
     public static boolean isEmail(String email) {
         if (null == email || "".equals(email)) return false;
