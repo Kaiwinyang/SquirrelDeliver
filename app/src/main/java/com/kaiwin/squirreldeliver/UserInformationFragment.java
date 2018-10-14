@@ -3,7 +3,6 @@ package com.kaiwin.squirreldeliver;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +66,7 @@ public class UserInformationFragment extends Fragment {
     @Override
     public void onResume() {
 
-        ((MajorActivity)getActivity()).navigationView.setCheckedItem(R.id.nav_personal_info);
+        ((MajorActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_personal_info);
         //Log.v(Tool.TAG, "Fragment onResume");
         super.onResume();
     }

@@ -21,16 +21,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
-            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".RegisterActivity"
+            android:launchMode="singleInstance" />
 
-        <activity android:name=".CenterActivity"
-            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".CenterActivity"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".MajorActivity"
             android:label="@string/title_activity_major"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SettingsActivity" android:launchMode="singleInstance"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:launchMode="singleInstance"></activity>
     </application>
 
 </manifest>

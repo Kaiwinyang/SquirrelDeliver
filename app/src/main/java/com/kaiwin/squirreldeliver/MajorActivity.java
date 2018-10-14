@@ -14,7 +14,7 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,6 +31,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 public class MajorActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,7 +40,7 @@ public class MajorActivity extends AppCompatActivity
     FloatingActionButton fab;
 
 
-    CreateDeliverTaskFragment createDeliverTaskFragment;
+    CreateDeliverTaskFragment createDeliverTaskFragment = CreateDeliverTaskFragment.newInstance("", "");
     UserInformationFragment userInformationFragment = new UserInformationFragment();
 
     NavigationView navigationView;
@@ -60,8 +62,6 @@ public class MajorActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         init_mAuthAndGetUserInfo();
-
-        createDeliverTaskFragment = CreateDeliverTaskFragment.newInstance("", "");
 
         /*控制侧滑菜单*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -189,7 +189,17 @@ public class MajorActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager m = getSupportFragmentManager();
+            List<Fragment> fragments = m.getFragments();
+            int size = fragments.size();
+            int index = fragments.lastIndexOf(createDeliverTaskFragment);
+            if (index != -1 && index == size - 1) {
+                super.onBackPressed();
+                fab.show();
+            } else {
+                finish();
+            }
+
         }
     }
 
@@ -270,6 +280,7 @@ public class MajorActivity extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.major_fragment, fragment)
+                .addToBackStack(null)
                 .commit();
         fab.show();
     }
