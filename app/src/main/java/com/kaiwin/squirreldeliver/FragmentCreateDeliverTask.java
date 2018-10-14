@@ -14,6 +14,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.kaiwin.squirreldeliver.Dao.Order;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,13 +30,16 @@ public class FragmentCreateDeliverTask extends Fragment {
     public final static String TAG = "FragmentCreateDeliverTask";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     Button buttonComfirm;
     RadioGroup radioGroup;
     TextInputEditText textInputEditTextFromName, textInputEditTextFromPhone;
     TextInputEditText textInputEditTextToName, textInputEditTextToPhone;
+
+    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -92,20 +101,40 @@ public class FragmentCreateDeliverTask extends Fragment {
         buttonComfirm.setOnClickListener(
                 view -> {
                     RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
-                    String str;
 
-                    if (radioBtnSelected == null)
-                        str = getString(R.string.please_select_at_least_one_button_in_radio_button_group);
-                    else
-                        str = textInputEditTextFromPhone.getText().toString() + "\n"
-                                + textInputEditTextFromName.getText().toString() + "\n"
-                                + textInputEditTextToPhone.getText().toString() + "\n"
-                                + textInputEditTextToName.getText().toString() + "\n"
-                                + radioBtnSelected.getText().toString();
+                    String consignor, consignee, phoneFrom, phoneTo, selectedOption;
+                    consignor = textInputEditTextFromName.getText().toString();
+                    consignee = textInputEditTextToName.getText().toString();
+                    phoneFrom = textInputEditTextFromPhone.getText().toString();
+                    phoneTo = textInputEditTextToPhone.getText().toString();
 
-                    new AlertDialog.Builder(activity).setMessage(str).setCancelable(false)
-                            .setPositiveButton(R.string.confirm_order, null)
-                            .create().show();
+                    if (radioBtnSelected == null) {
+                        String str = getString(R.string.please_select_at_least_one_button_in_radio_button_group);
+                        new AlertDialog.Builder(activity).setMessage(str).setCancelable(false)
+                                .setPositiveButton(R.string.confirm_order, null)
+                                .create().show();
+                        return;
+                    } else
+                        selectedOption = radioBtnSelected.getText().toString();
+
+                    Order order = new Order(consignor, consignee, phoneFrom, phoneTo, selectedOption);
+
+                    order.createNewOrder()
+                            .addOnSuccessListener(
+                                    task -> {
+                                        new AlertDialog.Builder(activity).setMessage(R.string.order_has_been_uploaded)
+                                                .setPositiveButton(R.string.confirm_order, null)
+                                                .create().show();
+                                    }
+                            )
+                            .addOnFailureListener(
+                                    e -> {
+                                        new AlertDialog.Builder(activity).setMessage(e.toString())
+                                                .setPositiveButton(R.string.confirm_order, null)
+                                                .setCancelable(false).create().show();
+                                    }
+                            );
+
                 }
         );
     }
