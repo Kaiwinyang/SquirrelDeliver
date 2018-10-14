@@ -2,11 +2,14 @@ package com.kaiwin.squirreldeliver;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +94,12 @@ public class FragmentCreateDeliverTask extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
+        AlertDialog dialogWaiting = new AlertDialog
+                .Builder(activity)
+                .setIcon(R.drawable.poop)
+                .setMessage(R.string.order_is_being_uploaded)
+                .setCancelable(false)
+                .create();
 
         textInputEditTextFromName = activity.findViewById(R.id.textInputEditTextFromName);
         textInputEditTextFromPhone = activity.findViewById(R.id.textInputEditTextFromPhone);
@@ -102,10 +111,7 @@ public class FragmentCreateDeliverTask extends Fragment {
         buttonComfirm = activity.findViewById(R.id.confirm_button);
         buttonComfirm.setOnClickListener(
                 view -> {
-                    if (tool.isClicked.get()) return;
-
-                    tool.isClicked.set(true);
-                    view.setClickable(false);
+                    if (tool.isClicked.getAndSet(true)) return;
 
                     RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
 
@@ -126,20 +132,36 @@ public class FragmentCreateDeliverTask extends Fragment {
 
                     Order order = new Order(consignor, consignee, phoneFrom, phoneTo, selectedOption);
 
-                    AlertDialog dialogWaiting = new AlertDialog
-                            .Builder(activity)
-                            .setIcon(R.drawable.poop)
-                            .setMessage(R.string.order_is_being_uploaded)
-                            .setCancelable(false)
-                            .create();
                     dialogWaiting.show();
 
-                    Thread currentThread = Thread.currentThread();
+                    Thread mThread = new Thread(() -> {
+                        Looper.prepare();
+                        try {
+                            Thread.sleep(1350);
+                            new Handler(Looper.getMainLooper()).post(() -> dialogWaiting.hide());
+
+                            new AlertDialog
+                                    .Builder(activity)
+                                    .setTitle(R.string.order_upload_failed)
+                                    .setMessage(R.string.upload_time_out)
+                                    .setPositiveButton(R.string.OK, null)
+                                    .setCancelable(false)
+                                    .create()
+                                    .show();
+
+                        } catch (InterruptedException e) {
+                            Log.v(tool.TAG, "Interrupted");
+                        } finally {
+                            tool.isClicked.set(false);
+                        }
+                        Looper.loop();
+                    });
+                    mThread.start();
 
                     order.createNewOrder()
                             .addOnCompleteListener(task -> {
-                                dialogWaiting.dismiss();
-                                currentThread.interrupt();
+                                dialogWaiting.hide();
+                                mThread.interrupt();
                             })
                             .addOnSuccessListener(task ->
                                     new AlertDialog
@@ -159,24 +181,6 @@ public class FragmentCreateDeliverTask extends Fragment {
                                         .create()
                                         .show();
                             });
-
-                    try {
-                        Thread.sleep(1200);
-                        dialogWaiting.dismiss();
-
-                        new AlertDialog
-                                .Builder(activity)
-                                .setTitle(R.string.order_upload_failed)
-                                .setMessage(R.string.upload_time_out)
-                                .setPositiveButton(R.string.OK, null)
-                                .setCancelable(false)
-                                .create()
-                                .show();
-                    } catch (InterruptedException e) {
-                    }
-
-                    tool.isClicked.set(false);
-                    view.setClickable(true);
                 }
         );
     }
