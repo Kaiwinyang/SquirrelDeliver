@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 class Tool {
     public static String TAG = "Banana";
 
+    boolean isClicked = false;
+
     public static boolean isEmail(String email) {
         if (null == email || "".equals(email)) return false;
         //Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}"); //简单匹配

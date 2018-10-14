@@ -7,6 +7,7 @@
     <string name="btn_login">登錄</string>
     <string name="register">註冊</string>
     <string name="title_activity_login">請登入</string>
+    <string name="OK">好</string>
 
     <string name="invalid_email_input">郵件格式不正確</string>
     <string name="empty_input">郵箱和密碼不可為空</string>
@@ -71,7 +72,10 @@
     <string name="delivery_time">送貨時間</string>
     <string name="description">詳細描述 : 訂單類型（下拉式）= ...(TODO: 添加內容)</string>
     <string name="please_select_at_least_one_button_in_radio_button_group">請選擇至少一個選項</string>
-    <string name="order_has_been_uploaded">訂單已生成</string>
+    <string name="order_upload_success">訂單已生成</string>
+    <string name="order_is_being_uploaded">訂單正在上傳</string>
+    <string name="order_upload_failed">上傳失敗</string>
+    <string name="upload_time_out">上傳超時，我們將在重新聯網后自動為你重新上傳</string>
 
 
     <!-- notification relative -->

@@ -97,9 +97,16 @@ public class FragmentCreateDeliverTask extends Fragment {
 
         radioGroup = activity.findViewById(R.id.radioGroupInFragment);
 
+        Tool tool = new Tool();
+
         buttonComfirm = activity.findViewById(R.id.confirm_button);
         buttonComfirm.setOnClickListener(
                 view -> {
+                    if (tool.isClicked) {
+                        return;
+                    }
+                    tool.isClicked = true;
+
                     RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
 
                     String consignor, consignee, phoneFrom, phoneTo, selectedOption;
@@ -119,18 +126,58 @@ public class FragmentCreateDeliverTask extends Fragment {
 
                     Order order = new Order(consignor, consignee, phoneFrom, phoneTo, selectedOption);
 
+                    AlertDialog dialogWaiting = new AlertDialog
+                            .Builder(activity)
+                            .setIcon(R.drawable.poop)
+                            .setMessage(R.string.order_is_being_uploaded)
+                            .setCancelable(false)
+                            .create();
+                    dialogWaiting.show();
+
+                    Thread currentThread = Thread.currentThread();
+
                     order.createNewOrder()
-                            .addOnSuccessListener(task -> {
-                                new AlertDialog.Builder(activity).setMessage(R.string.order_has_been_uploaded)
-                                        .setPositiveButton(R.string.confirm_order, null)
-                                        .create().show();
+                            .addOnCompleteListener(task -> {
+                                dialogWaiting.dismiss();
+                                currentThread.interrupt();
                             })
+                            .addOnSuccessListener(task ->
+                                    new AlertDialog
+                                            .Builder(activity)
+                                            .setIcon(R.drawable.poop)
+                                            .setMessage(R.string.order_upload_success)
+                                            .setPositiveButton(R.string.OK, null)
+                                            .setCancelable(false)
+                                            .create()
+                                            .show()
+                            )
                             .addOnFailureListener(e -> {
-                                new AlertDialog.Builder(activity).setMessage(e.toString())
-                                        .setPositiveButton(R.string.confirm_order, null)
-                                        .setCancelable(false).create().show();
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.order_upload_failed)
+                                        .setMessage(e.toString())
+                                        .setPositiveButton(R.string.OK, null)
+                                        .setCancelable(false)
+                                        .create()
+                                        .show();
                             });
 
+                    try {
+                        Thread.sleep(1200);
+                        dialogWaiting.dismiss();
+
+                        new AlertDialog
+                                .Builder(activity)
+                                .setIcon(R.drawable.poop)
+                                .setTitle(R.string.order_upload_failed)
+                                .setMessage(R.string.upload_time_out)
+                                .setPositiveButton(R.string.OK, null)
+                                .setCancelable(false)
+                                .create()
+                                .show();
+                    } catch (InterruptedException e) {
+                    }
+
+                    tool.isClicked = false;
                 }
         );
     }
