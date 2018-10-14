@@ -2,10 +2,18 @@ package com.kaiwin.squirreldeliver;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 
 /**
@@ -23,6 +31,10 @@ public class FragmentCreateDeliverTask extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Button buttonComfirm;
+    RadioGroup radioGroup;
+    TextInputEditText textInputEditTextFromName, textInputEditTextFromPhone;
+    TextInputEditText textInputEditTextToName, textInputEditTextToPhone;
 
     public FragmentCreateDeliverTask() {
         // Required empty public constructor
@@ -63,4 +75,38 @@ public class FragmentCreateDeliverTask extends Fragment {
         return inflater.inflate(R.layout.fragment_create_deliver_task, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+        textInputEditTextFromName = activity.findViewById(R.id.textInputEditTextFromName);
+        textInputEditTextFromPhone = activity.findViewById(R.id.textInputEditTextFromPhone);
+        textInputEditTextToName = activity.findViewById(R.id.textInputEditTextToName);
+        textInputEditTextToPhone = activity.findViewById(R.id.textInputEditTextToPhone);
+
+        radioGroup = activity.findViewById(R.id.radioGroupInFragment);
+
+        buttonComfirm = activity.findViewById(R.id.confirm_button);
+        buttonComfirm.setOnClickListener(
+                view -> {
+                    RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
+                    String str ;
+
+                    if (radioBtnSelected ==null)
+                        str = getString(R.string.please_select_at_least_one_button_in_radio_button_group);
+                    else
+                        str = textInputEditTextFromPhone.getText().toString() + "\n"
+                            + textInputEditTextFromName.getText().toString() + "\n"
+                            + textInputEditTextToPhone.getText().toString() + "\n"
+                            + textInputEditTextToName.getText().toString() + "\n"
+                            + radioBtnSelected.getText().toString();
+
+                    new AlertDialog.Builder(activity).setMessage(str).setCancelable(false)
+                            .setPositiveButton(R.string.confirm_order,null)
+                            .create().show();
+                }
+        );
+    }
 }

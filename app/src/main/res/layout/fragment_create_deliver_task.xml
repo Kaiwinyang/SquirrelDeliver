@@ -21,6 +21,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/textInputEditTextFromPhone"
             android:hint="@string/phone_of_consignor"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
@@ -39,6 +40,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/textInputEditTextFromName"
             android:hint="@string/name_of_consignor"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
@@ -57,6 +59,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/textInputEditTextToPhone"
             android:hint="@string/phone_of_consignee"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
@@ -75,12 +78,13 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/textInputEditTextToName"
             android:hint="@string/name_of_consignee"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <RadioGroup
-        android:id="@+id/RadioGroup1"
+        android:id="@+id/radioGroupInFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -123,7 +127,7 @@
         android:text="@string/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RadioGroup1" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupInFragment" />
 
     <Button
         android:id="@+id/confirm_button"

@@ -70,6 +70,7 @@
     <string name="address_for_delivery">送件地址</string>
     <string name="delivery_time">送貨時間</string>
     <string name="description">詳細描述 : 訂單類型（下拉式）= ...(TODO: 添加內容)</string>
+    <string name="please_select_at_least_one_button_in_radio_button_group">請選擇至少一個選項</string>
 
 
     <!-- notification relative -->
