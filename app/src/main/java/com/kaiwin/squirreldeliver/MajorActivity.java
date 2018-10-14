@@ -90,7 +90,7 @@ public class MajorActivity extends AppCompatActivity
                     fab.hide();
 
                     MenuItem menuItemChecked = navigationView.getCheckedItem();
-                    if (menuItemChecked != null) menuItemChecked.setChecked(false);
+                    if (menuItemChecked != null) menuItemChecked.setCheckable(false);
                 }
         );
         replaceFragment(userInformationFragment);
@@ -220,13 +220,13 @@ public class MajorActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        item.setCheckable(true);
 
         if (id == R.id.nav_change_icon) {
 
         } else if (id == R.id.nav_history_orders) {
 
         } else if (id == R.id.nav_personal_info) {
-            //navigationView.setCheckedItem(R.id.nav_personal_info);
             replaceFragment(userInformationFragment);
 
         } else if (id == R.id.nav_settings) {
