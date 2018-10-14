@@ -40,8 +40,8 @@ public class MajorActivity extends AppCompatActivity
     FloatingActionButton fab;
 
 
-    CreateDeliverTaskFragment createDeliverTaskFragment = CreateDeliverTaskFragment.newInstance("", "");
-    UserInformationFragment userInformationFragment = new UserInformationFragment();
+    FragmentCreateDeliverTask fragmentCreateDeliverTask = FragmentCreateDeliverTask.newInstance("", "");
+    FragmentUserInformation fragmentUserInformation = new FragmentUserInformation();
 
     NavigationView navigationView;
     View navigationViewHeader;
@@ -86,14 +86,14 @@ public class MajorActivity extends AppCompatActivity
         fab.setOnClickListener(
                 (View) -> {
                     //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    replaceFragment(createDeliverTaskFragment);
+                    replaceFragment(fragmentCreateDeliverTask);
                     fab.hide();
 
                     MenuItem menuItemChecked = navigationView.getCheckedItem();
                     if (menuItemChecked != null) menuItemChecked.setCheckable(false);
                 }
         );
-        replaceFragment(userInformationFragment);
+        replaceFragment(fragmentUserInformation);
 
         navigationViewHeader = navigationView.getHeaderView(0);
         userIconImageView = navigationViewHeader.findViewById(R.id.userIconImageView);
@@ -192,7 +192,7 @@ public class MajorActivity extends AppCompatActivity
             FragmentManager m = getSupportFragmentManager();
             List<Fragment> fragments = m.getFragments();
             int size = fragments.size();
-            int index = fragments.lastIndexOf(createDeliverTaskFragment);
+            int index = fragments.lastIndexOf(fragmentCreateDeliverTask);
             if (index != -1 && index == size - 1) {
                 super.onBackPressed();
                 fab.show();
@@ -237,7 +237,7 @@ public class MajorActivity extends AppCompatActivity
         } else if (id == R.id.nav_history_orders) {
 
         } else if (id == R.id.nav_personal_info) {
-            replaceFragment(userInformationFragment);
+            replaceFragment(fragmentUserInformation);
 
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
