@@ -120,20 +120,16 @@ public class FragmentCreateDeliverTask extends Fragment {
                     Order order = new Order(consignor, consignee, phoneFrom, phoneTo, selectedOption);
 
                     order.createNewOrder()
-                            .addOnSuccessListener(
-                                    task -> {
-                                        new AlertDialog.Builder(activity).setMessage(R.string.order_has_been_uploaded)
-                                                .setPositiveButton(R.string.confirm_order, null)
-                                                .create().show();
-                                    }
-                            )
-                            .addOnFailureListener(
-                                    e -> {
-                                        new AlertDialog.Builder(activity).setMessage(e.toString())
-                                                .setPositiveButton(R.string.confirm_order, null)
-                                                .setCancelable(false).create().show();
-                                    }
-                            );
+                            .addOnSuccessListener(task -> {
+                                new AlertDialog.Builder(activity).setMessage(R.string.order_has_been_uploaded)
+                                        .setPositiveButton(R.string.confirm_order, null)
+                                        .create().show();
+                            })
+                            .addOnFailureListener(e -> {
+                                new AlertDialog.Builder(activity).setMessage(e.toString())
+                                        .setPositiveButton(R.string.confirm_order, null)
+                                        .setCancelable(false).create().show();
+                            });
 
                 }
         );
