@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -97,7 +98,8 @@ public class FragmentCreateDeliverTask extends Fragment {
         AlertDialog dialogWaiting = new AlertDialog
                 .Builder(activity)
                 .setIcon(R.drawable.poop)
-                .setMessage(R.string.order_is_being_uploaded)
+                .setTitle(R.string.order_is_being_uploaded)
+                .setView(new ProgressBar(activity))
                 .setCancelable(false)
                 .create();
 
