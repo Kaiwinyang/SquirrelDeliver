@@ -10,13 +10,19 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Order {
 
-    public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption;
+    public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption, startAt, processedAt, deliveredAt;
 
-    private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference mOrdersDataRef = db.child("orders").child("new order").child(user.getUid());
+    private static DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private static DatabaseReference mOrdersDataRef = db.child("orders").child("new order").child(user.getUid());
 
+    public static DatabaseReference getmOrdersDataRef() {
+        return mOrdersDataRef;
+    }
 
+    //Firebase requires an non-arg constructor
+    public Order() {
+    }
 
     public Order(String consignor, String consignee, String phoneFrom, String phoneTo, String selectedOption) {
         this.consignor = consignor;
@@ -30,7 +36,8 @@ public class Order {
 
 
     public Task<Void> createNewOrder() {
-        return mOrdersDataRef.child(String.valueOf(System.currentTimeMillis())).setValue(this);
+        this.startAt = String.valueOf(System.currentTimeMillis());
+        return mOrdersDataRef.child(this.startAt).setValue(this);
     }
 
 

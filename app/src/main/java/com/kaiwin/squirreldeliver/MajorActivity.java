@@ -42,6 +42,7 @@ public class MajorActivity extends AppCompatActivity
 
     FragmentCreateDeliverTask fragmentCreateDeliverTask = FragmentCreateDeliverTask.newInstance("", "");
     FragmentUserInformation fragmentUserInformation = new FragmentUserInformation();
+    FragmentOrdersInSuspense fragmentOrdersInSuspense = FragmentOrdersInSuspense.newInstance("", "");
 
     NavigationView navigationView;
     View navigationViewHeader;
@@ -93,7 +94,7 @@ public class MajorActivity extends AppCompatActivity
                     if (menuItemChecked != null) menuItemChecked.setCheckable(false);
                 }
         );
-        replaceFragment(fragmentUserInformation);
+        replaceFragment(fragmentOrdersInSuspense);
 
         navigationViewHeader = navigationView.getHeaderView(0);
         userIconImageView = navigationViewHeader.findViewById(R.id.userIconImageView);
@@ -232,7 +233,8 @@ public class MajorActivity extends AppCompatActivity
         int id = item.getItemId();
         item.setCheckable(true);
 
-        if (id == R.id.nav_change_icon) {
+        if (id == R.id.OrderInSuspense) {
+            replaceFragment(fragmentOrdersInSuspense);
 
         } else if (id == R.id.nav_history_orders) {
 

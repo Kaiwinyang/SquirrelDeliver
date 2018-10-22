@@ -9,6 +9,8 @@
     <string name="title_activity_login">請登入</string>
     <string name="OK">好</string>
 
+    <string name="nothing">什麼玩意都沒有</string>
+
     <string name="invalid_email_input">郵件格式不正確</string>
     <string name="empty_input">郵箱和密碼不可為空</string>
     <string name="email_not_verified">郵箱未驗證，請進入郵箱點擊驗證鏈接</string>
@@ -47,7 +49,7 @@
     <string name="About">其他</string>
     <string name="Other1">条约</string>
     <string name="Logout">登出</string>
-    <string name="change_icon">換頭像</string>
+    <string name="order_in_suspense">尚未處理的訂單</string>
     <string name="history_orders">歷史訂單</string>
     <string name="personal_info">個人信息</string>
 
