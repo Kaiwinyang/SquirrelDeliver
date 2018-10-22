@@ -12,9 +12,11 @@ public class Order {
 
     public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption;
 
-
     private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference mOrdersDataRef = db.child("orders").child("new order").child(user.getUid());
+
+
 
     public Order(String consignor, String consignee, String phoneFrom, String phoneTo, String selectedOption) {
         this.consignor = consignor;
@@ -28,11 +30,7 @@ public class Order {
 
 
     public Task<Void> createNewOrder() {
-        return db.child("orders")
-                .child("new order")
-                .child(uid)
-                .child(String.valueOf(System.currentTimeMillis()))
-                .setValue(this);
+        return mOrdersDataRef.child(String.valueOf(System.currentTimeMillis())).setValue(this);
     }
 
 
