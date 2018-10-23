@@ -41,6 +41,7 @@ public class FragmentCreateDeliverTask extends Fragment {
     RadioGroup radioGroup;
     TextInputEditText textInputEditTextFromName, textInputEditTextFromPhone;
     TextInputEditText textInputEditTextToName, textInputEditTextToPhone;
+    TextInputEditText textInputEditTextAddressOfConsignor, textInputEditTextAddressOfConsignee;
 
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -107,6 +108,8 @@ public class FragmentCreateDeliverTask extends Fragment {
         textInputEditTextFromPhone = activity.findViewById(R.id.textInputEditTextFromPhone);
         textInputEditTextToName = activity.findViewById(R.id.textInputEditTextToName);
         textInputEditTextToPhone = activity.findViewById(R.id.textInputEditTextToPhone);
+        textInputEditTextAddressOfConsignor = activity.findViewById(R.id.textInputEditTextAddressOfConsignor);
+        textInputEditTextAddressOfConsignee = activity.findViewById(R.id.textInputEditTextAddressOfConsignee);
 
         radioGroup = activity.findViewById(R.id.radioGroupInFragment);
 
@@ -117,22 +120,30 @@ public class FragmentCreateDeliverTask extends Fragment {
 
                     RadioButton radioBtnSelected = activity.findViewById(radioGroup.getCheckedRadioButtonId());
 
-                    String consignor, consignee, phoneFrom, phoneTo, selectedOption;
-                    consignor = textInputEditTextFromName.getText().toString();
-                    consignee = textInputEditTextToName.getText().toString();
-                    phoneFrom = textInputEditTextFromPhone.getText().toString();
-                    phoneTo = textInputEditTextToPhone.getText().toString();
+                    String consignor, consignee, phoneFrom, phoneTo, selectedOption, addressOfConsignor, addressOfConsignee;
+                    consignor = textInputEditTextFromName.getText().toString().trim();
+                    consignee = textInputEditTextToName.getText().toString().trim();
+                    phoneFrom = textInputEditTextFromPhone.getText().toString().trim();
+                    phoneTo = textInputEditTextToPhone.getText().toString().trim();
+                    addressOfConsignee = textInputEditTextAddressOfConsignor.getText().toString().trim();
+                    addressOfConsignor = textInputEditTextAddressOfConsignee.getText().toString().trim();
 
                     if (radioBtnSelected == null) {
                         String str = getString(R.string.please_select_at_least_one_button_in_radio_button_group);
                         new AlertDialog.Builder(activity).setMessage(str).setCancelable(false)
-                                .setPositiveButton(R.string.confirm_order, null)
+                                .setPositiveButton(R.string.OK, null)
                                 .create().show();
                         return;
-                    } else
+                    } else {
                         selectedOption = radioBtnSelected.getText().toString();
 
-                    Order order = new Order(consignor, consignee, phoneFrom, phoneTo, selectedOption);
+                        if (consignee.isEmpty()) {
+
+                        }
+                    }
+
+                    Order order = new Order(consignor, consignee, phoneFrom, phoneTo, selectedOption,
+                            addressOfConsignor, addressOfConsignee);
 
                     dialogWaiting.show();
 
@@ -164,6 +175,7 @@ public class FragmentCreateDeliverTask extends Fragment {
                             .addOnCompleteListener(task -> {
                                 dialogWaiting.hide();
                                 mThread.interrupt();
+                                getActivity().onBackPressed();
                             })
                             .addOnSuccessListener(task ->
                                     new AlertDialog

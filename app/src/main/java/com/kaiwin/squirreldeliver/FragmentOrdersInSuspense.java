@@ -2,6 +2,7 @@ package com.kaiwin.squirreldeliver;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +38,7 @@ public class FragmentOrdersInSuspense extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     ListView listView;
-    SimpleAdapter adapter;
+    OrderAdapter adapter;
 
     List<HashMap<String, String>> listForOrderInSuspense = new ArrayList<>();
 
@@ -46,6 +48,39 @@ public class FragmentOrdersInSuspense extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    class OrderAdapter extends ArrayAdapter<Order> {
+        private int mResourceId;
+
+        public OrderAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+            this.mResourceId = textViewResourceId;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View view = inflater.inflate(mResourceId, null);
+
+            TextView title = view.findViewById(R.id.item_title);
+            TextView consigneeName = view.findViewById(R.id.textViewConsigneeName);
+            TextView consignorName = view.findViewById(R.id.textViewConsignorName);
+            TextView consignorPhone = view.findViewById(R.id.textViewConsignorPhone);
+            TextView consigneePhone = view.findViewById(R.id.textViewConsigneePhone);
+            TextView consignorAddress = view.findViewById(R.id.textViewAddressOfConsignor);
+            TextView consigneeAddress = view.findViewById(R.id.textViewAddressOfConsignee);
+
+            Order o = getItem(position);
+            title.setText(o.startAt + "(長按刪除)");
+            consignorName.setText(o.consignor);
+            consignorPhone.setText(o.phoneFrom);
+            consigneeName.setText(o.consignee);
+            consigneePhone.setText(o.phoneTo);
+            consigneeAddress.setText(o.addressOfConsignee);
+            consignorAddress.setText(o.addressOfConsignor);
+
+            return view;
+        }
+    }
 
     public FragmentOrdersInSuspense() {
         // Required empty public constructor
@@ -77,19 +112,20 @@ public class FragmentOrdersInSuspense extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        adapter = new OrderAdapter(getActivity(), R.layout.simple_item);
+
         orderRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listForOrderInSuspense.clear();
+                adapter.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    HashMap<String, String> o = new HashMap<>();
-                    o.put("title", order.startAt);
-                    listForOrderInSuspense.add(o);
-                    Log.i(Tool.TAG, snapshot.toString());
+                    adapter.add(order);
                 }
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
+
+                Log.i(Tool.TAG, "onDataChange");
             }
 
             @Override
@@ -123,18 +159,14 @@ public class FragmentOrdersInSuspense extends Fragment {
         ((ViewGroup) listView.getParent()).addView(empty);
         listView.setEmptyView(empty);
 
-        String[] from = {"title"};
-        int[] to = {R.id.item_title};
-
-        adapter = new SimpleAdapter(getActivity(), listForOrderInSuspense, R.layout.simple_item, from, to);
-
         listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
 //            listForOrderInSuspense.remove(position);
 //            adapter.notifyDataSetChanged();
-            orderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
+            //orderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
 
+            orderRef.child(adapter.getItem(position).startAt).removeValue();
             return true;
         });
 

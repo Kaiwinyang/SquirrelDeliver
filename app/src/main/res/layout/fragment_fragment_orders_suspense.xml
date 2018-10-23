@@ -7,11 +7,11 @@
     tools:context=".FragmentOrdersInSuspense">
 
     <ListView
-        android:layout_margin="0dp"
         android:id="@+id/listView"
-        android:divider="#ffffff"
-        android:dividerHeight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15dp" />
 
 </FrameLayout>

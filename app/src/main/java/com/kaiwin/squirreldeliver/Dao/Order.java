@@ -12,6 +12,10 @@ public class Order {
 
     public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption, startAt, processedAt, deliveredAt;
 
+    public String courierUid, status;
+
+    public String addressOfConsignor, addressOfConsignee;
+
     private static DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static DatabaseReference mOrdersDataRef = db.child("orders").child("new order").child(user.getUid());
@@ -24,12 +28,16 @@ public class Order {
     public Order() {
     }
 
-    public Order(String consignor, String consignee, String phoneFrom, String phoneTo, String selectedOption) {
+    public Order(String consignor, String consignee, String phoneFrom, String phoneTo, String selectedOption,
+                 String addressOfConsignor,
+                 String addressOfConsignee) {
         this.consignor = consignor;
         this.consignee = consignee;
         this.phoneFrom = phoneFrom;
         this.phoneTo = phoneTo;
         this.selectedOption = selectedOption;
+        this.addressOfConsignor = addressOfConsignor;
+        this.addressOfConsignee = addressOfConsignee;
 
         this.uid = user.getUid();
     }

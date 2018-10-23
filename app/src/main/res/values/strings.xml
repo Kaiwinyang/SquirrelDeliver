@@ -64,8 +64,10 @@
     <string name="confirm_order">確認訂單</string>
     <string name="phone_of_consignor">寄件人手机</string>
     <string name="name_of_consignor">寄件人名称</string>
+    <string name="address_of_consignor">寄件人地址</string>
     <string name="phone_of_consignee">收件人手机</string>
     <string name="name_of_consignee">收件人姓名</string>
+    <string name="address_of_consignee">收件人地址</string>
     <string name="type_of_order">订单类型</string>
     <string name="fragile_article">易碎品</string>
     <string name="food">食品</string>

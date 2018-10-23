@@ -1,15 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_margin="15dp"
-    app:cardCornerRadius="0dp">
+    app:cardCornerRadius="0dp"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
 
-    <TextView
-        android:id="@+id/item_title"
-        android:padding="5dp"
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp" />
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewConsignorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/item_title"
+            app:layout_constraintTop_toBottomOf="@+id/item_title"
+            tools:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/textViewConsignorPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewConsignorName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewConsignorName" />
+
+        <TextView
+            android:id="@+id/textViewConsigneeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewAddressOfConsignor"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAddressOfConsignor" />
+
+        <TextView
+            android:id="@+id/textViewConsigneePhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewConsigneeName"
+            app:layout_constraintEnd_toEndOf="@+id/textViewConsignorPhone" />
+
+        <TextView
+            android:id="@+id/textViewAddressOfConsignor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="false"
+            android:text="TextView"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textViewConsignorName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewConsignorName" />
+
+        <TextView
+            android:id="@+id/textViewAddressOfConsignee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="false"
+            android:text="TextView"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textViewConsigneeName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewConsigneeName" />
+
+        <!--<Button
+            android:id="@+id/button"
+            android:layout_width="25dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/trash2"
+
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewAddressOfConsignee"
+            app:layout_constraintEnd_toEndOf="parent" />-->
+    </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
