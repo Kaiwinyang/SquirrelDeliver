@@ -101,7 +101,6 @@ public class MajorActivity extends AppCompatActivity
         usernameTextViewAtHeader = navigationViewHeader.findViewById(R.id.usernameTextViewAtHeader);
         emailTextViewAtHeader = navigationViewHeader.findViewById(R.id.emailTextViewAtHeader);
         initHeader();
-
     }
 
     private void myNotify() {
@@ -259,7 +258,7 @@ public class MajorActivity extends AppCompatActivity
         return true;
     }
 
-    private void init_mAuthAndGetUserInfo() {
+    void init_mAuthAndGetUserInfo() {
         mAuth = FirebaseAuth.getInstance();
         if (mAuth == null)
             startActivity(new Intent(this, LoginActivity.class)
@@ -270,12 +269,10 @@ public class MajorActivity extends AppCompatActivity
         email = user.getEmail();
     }
 
-    private void initHeader() {
+    void initHeader() {
         // userIconImageView = findViewById(R.id.userIconImageView);
         usernameTextViewAtHeader.setText(username);
         emailTextViewAtHeader.setText(email);
-
-        Log.v(Tool.TAG, "initHeader");
     }
 
     private void replaceFragment(Fragment fragment) {

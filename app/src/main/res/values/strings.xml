@@ -81,6 +81,11 @@
     <string name="order_upload_failed">上傳失敗</string>
     <string name="upload_time_out">上傳超時，我們將在重新聯網后自動為你重新上傳</string>
 
+    <!-- User Info Fragment relative -->
+    <string name="user_name">昵稱</string>
+    <string name="photo_uri">頭像網址</string>
+    <string name="confirm_to_change">確認修改</string>
+    <string name="change_user_info_sucess">修改成功</string>
 
     <!-- notification relative -->
     <string name="notification_title">未連接網路</string>
