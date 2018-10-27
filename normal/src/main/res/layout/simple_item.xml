@@ -5,14 +5,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="0dp"
-    android:foreground="?attr/selectableItemBackgroundBorderless">
-
+    android:foreground="?attr/selectableItemBackground">
+    <!--android:foreground="?attr/selectableItemBackgroundBorderless"-->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        android:descendantFocusability="afterDescendants">
 
         <TextView
             android:id="@+id/item_title"
@@ -90,14 +91,15 @@
             app:layout_constraintStart_toStartOf="@+id/textViewConsigneeName"
             app:layout_constraintTop_toBottomOf="@+id/textViewConsigneeName" />
 
-        <!--<Button
+        <Button
             android:id="@+id/button"
             android:layout_width="25dp"
             android:layout_height="35dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/trash2"
+            android:focusable="false"
 
             app:layout_constraintBaseline_toBaselineOf="@+id/textViewAddressOfConsignee"
-            app:layout_constraintEnd_toEndOf="parent" />-->
+            app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

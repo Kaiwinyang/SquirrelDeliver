@@ -6,4 +6,8 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_create_an_order"
+        android:orderInCategory="100"
+        android:title="@string/Create_Deliver_Task_Fragment_Title" />
 </menu>

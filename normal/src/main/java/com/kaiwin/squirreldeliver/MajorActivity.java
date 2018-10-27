@@ -136,22 +136,6 @@ public class MajorActivity extends AppCompatActivity
                 .setAutoCancel(true);
 
         if (!isNetworkConnected()) {
-//            new Thread(() -> {
-//                for (int i = 0; i < 100; i++) {
-//                    notificationManager.notify(notificationID, builder.setProgress(100, i, false).build());
-//
-//                    try {
-//                        Thread.sleep(100);
-//                    } catch (Exception e) {
-//                        Log.v(Tool.TAG, "100ms");
-//                    }
-//                }
-//
-//                builder.setProgress(0, 0, false);
-//                builder.setFullScreenIntent(null, false);
-//                notificationManager.notify(notificationID, builder.build());
-//            }).start();
-
             //show head up notification
             notificationManager.notify(notificationID, builder.build());
 
@@ -220,6 +204,10 @@ public class MajorActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        if (id == R.id.action_create_an_order) {
+            replaceFragment(fragmentCreateDeliverTask);
             return true;
         }
 

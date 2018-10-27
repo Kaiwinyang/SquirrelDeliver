@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -77,6 +78,10 @@ public class FragmentOrdersInSuspense extends Fragment {
             consigneePhone.setText(o.phoneTo);
             consigneeAddress.setText(o.addressOfConsignee);
             consignorAddress.setText(o.addressOfConsignor);
+
+            Button button = view.findViewById(R.id.button);
+            button.setTag(position);
+            button.setOnClickListener(v -> orderRef.child(adapter.getItem(position).startAt).removeValue());
 
             return view;
         }
@@ -145,8 +150,9 @@ public class FragmentOrdersInSuspense extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_orders_suspense, container, false);
 
-        getActivity().setTitle(R.string.order_in_suspense);
-        listView = view.findViewById(R.id.listView);
+        MajorActivity activity = (MajorActivity) getActivity();
+        activity.setTitle(R.string.order_in_suspense);
+        activity.fab.hide();
         return view;
     }
 

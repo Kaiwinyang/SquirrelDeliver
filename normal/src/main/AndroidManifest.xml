@@ -31,10 +31,12 @@
         <activity
             android:name=".MajorActivity"
             android:label="@string/title_activity_major"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
     </application>
 
 </manifest>
