@@ -2,7 +2,6 @@ package com.kaiwin.squirreldeliver.Dao;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -17,11 +16,10 @@ public class Order {
     public String addressOfConsignor, addressOfConsignee;
 
     private static DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-    private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private static DatabaseReference mOrdersDataRef = db.child("orders").child("new order").child(user.getUid());
+    private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public static DatabaseReference getmOrdersDataRef() {
-        return mOrdersDataRef;
+    public static DatabaseReference getOrdersDataRef() {
+        return db.child("orders").child("new order").child(mAuth.getCurrentUser().getUid());
     }
 
     //Firebase requires an non-arg constructor
@@ -39,13 +37,13 @@ public class Order {
         this.addressOfConsignor = addressOfConsignor;
         this.addressOfConsignee = addressOfConsignee;
 
-        this.uid = user.getUid();
+        this.uid = mAuth.getUid();
     }
 
 
     public Task<Void> createNewOrder() {
         this.startAt = String.valueOf(System.currentTimeMillis());
-        return mOrdersDataRef.child(this.startAt).setValue(this);
+        return Order.getOrdersDataRef().child(this.startAt).setValue(this);
     }
 
 

@@ -271,4 +271,5 @@ public class MajorActivity extends AppCompatActivity
                 .commit();
         fab.show();
     }
+
 }

@@ -44,7 +44,7 @@ public class FragmentOrdersInSuspense extends Fragment {
 
     List<HashMap<String, String>> listForOrderInSuspense = new ArrayList<>();
 
-    DatabaseReference orderRef = Order.getmOrdersDataRef();
+    DatabaseReference orderRef = Order.getOrdersDataRef();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -127,7 +127,7 @@ public class FragmentOrdersInSuspense extends Fragment {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    if (order.uid == FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    if (order.uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                         adapter.add(order);
                 }
                 //adapter.notifyDataSetChanged();
@@ -152,15 +152,10 @@ public class FragmentOrdersInSuspense extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_orders_suspense, container, false);
 
+        listView = view.findViewById(R.id.listView);
         MajorActivity activity = (MajorActivity) getActivity();
         activity.setTitle(R.string.order_in_suspense);
         activity.fab.hide();
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
         //必須這麼寫，否則白屏
         View empty = View.inflate(getContext(), R.layout.nothing_with_a_smile_face, null/*(ViewGroup) listView.getParent()*/);
@@ -168,6 +163,12 @@ public class FragmentOrdersInSuspense extends Fragment {
         listView.setEmptyView(empty);
 
         listView.setAdapter(adapter);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
 //            listForOrderInSuspense.remove(position);
