@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -126,7 +127,8 @@ public class FragmentOrdersInSuspense extends Fragment {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    adapter.add(order);
+                    if (order.uid == FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        adapter.add(order);
                 }
                 //adapter.notifyDataSetChanged();
 
