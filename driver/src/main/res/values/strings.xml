@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">driver</string>
+    <string name="app_name">老司機</string>
     <string name="title_activity_major">ActivityMajor</string>
     <string name="title_orders_in_suspense">新訂單</string>
     <string name="title_orders_processing">我的訂單</string>
