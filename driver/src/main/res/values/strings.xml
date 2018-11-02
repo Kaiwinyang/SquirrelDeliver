@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">driver</string>
     <string name="title_activity_major">ActivityMajor</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_orders_in_suspense">新訂單</string>
+    <string name="title_my_orders">我的訂單</string>
+    <string name="title_orders_complete">已處理訂單</string>
+    <string name="sittings">設置</string>
 </resources>
