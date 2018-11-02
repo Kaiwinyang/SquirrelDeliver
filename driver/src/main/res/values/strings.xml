@@ -1,11 +1,8 @@
 <resources>
     <string name="app_name">老司機</string>
-    <string name="title_activity_major">ActivityMajor</string>
     <string name="title_orders_in_suspense">新訂單</string>
     <string name="title_orders_processing">我的訂單</string>
     <string name="title_orders_complete">已處理訂單</string>
     <string name="settings">設置</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
