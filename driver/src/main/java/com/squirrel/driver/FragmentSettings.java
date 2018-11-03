@@ -33,7 +33,6 @@ public class FragmentSettings extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-
      * @return A new instance of fragment FragmentSettings.
      */
     // TODO: Rename and change types and number of parameters
