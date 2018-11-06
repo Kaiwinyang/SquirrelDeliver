@@ -220,24 +220,31 @@ public class MajorActivity extends AppCompatActivity
         int id = item.getItemId();
         item.setCheckable(true);
 
-        if (id == R.id.OrderInSuspense) {
-            replaceFragment(fragmentOrdersInSuspense);
+        switch (id) {
+            case R.id.OrderInSuspense:
+                replaceFragment(fragmentOrdersInSuspense);
 
-        } else if (id == R.id.nav_history_orders) {
+                break;
+            case R.id.nav_history_orders:
 
-        } else if (id == R.id.nav_personal_info) {
-            replaceFragment(fragmentUserInformation);
+                break;
+            case R.id.nav_personal_info:
+                replaceFragment(fragmentUserInformation);
 
-        } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
 
-        } else if (id == R.id.nav_share) {
+                break;
+            case R.id.nav_share:
 
-        } else if (id == R.id.nav_logout) {
-            mAuth.signOut();
-            startActivity(new Intent(this, LoginActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                break;
+            case R.id.nav_logout:
+                mAuth.signOut();
+                startActivity(new Intent(this, LoginActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 
+                break;
         }
 
         /*关闭侧滑菜单*/
