@@ -57,7 +57,7 @@ public class FragmentOrdersInSuspense extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_orders_in_suspense, container, false);
+        return inflater.inflate(R.layout.fragment_orders_in_suspense, container, false);
     }
 
 }

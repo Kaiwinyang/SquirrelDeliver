@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".FragmentOrdersInSuspense">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_orders_in_suspense" />
+        android:layout_margin="0dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15dp" />
 
 </FrameLayout>
