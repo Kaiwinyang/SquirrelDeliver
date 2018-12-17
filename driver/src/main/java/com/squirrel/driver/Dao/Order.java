@@ -15,12 +15,27 @@ public class Order {
 
     public String addressOfConsignor, addressOfConsignee;
 
+    private DatabaseReference myDBRef;
+
     private static DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public static DatabaseReference getOrdersDataRef() {
+    public static DatabaseReference getMyOrdersDataRef() {
+        return db.child("orders").child("new order")/*.child(mAuth.getUid())*/;
+    }
+
+    public static DatabaseReference getOrdersDataRefWithoutUserId() {
         return db.child("orders").child("new order");
     }
+
+    public DatabaseReference getMyDBRef() {
+        return myDBRef;
+    }
+
+    public void setMyDBRef(DatabaseReference myDBRef) {
+        this.myDBRef = myDBRef;
+    }
+
 
     //Firebase requires an non-arg constructor
     public Order() {
@@ -43,7 +58,7 @@ public class Order {
 
     public Task<Void> createNewOrder() {
         this.startAt = String.valueOf(System.currentTimeMillis());
-        return Order.getOrdersDataRef().child(this.startAt).setValue(this);
+        return Order.getMyOrdersDataRef().child(this.startAt).setValue(this);
     }
 
 

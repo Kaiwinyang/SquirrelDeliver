@@ -41,7 +41,7 @@ public class FragmentOrdersComplete extends Fragment {
 
     ListView listView;
     OrderAdapter adapter;
-    DatabaseReference orderRef = Order.getOrdersDataRef();
+    DatabaseReference orderRef = Order.getMyOrdersDataRef();
 
     class OrderAdapter extends ArrayAdapter<Order> {
         private int mResourceId;
