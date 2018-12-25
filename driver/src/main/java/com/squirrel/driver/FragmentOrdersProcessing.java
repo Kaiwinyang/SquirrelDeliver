@@ -2,6 +2,7 @@ package com.squirrel.driver;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -66,7 +69,7 @@ public class FragmentOrdersProcessing extends Fragment {
             TextView consigneeAddress = view.findViewById(R.id.textViewAddressOfConsignee);
 
             Order o = getItem(position);
-            title.setText(o.startAt + "(長按接受訂單)");
+            title.setText(o.startAt + "(點擊確認送達)");
             consignorName.setText(o.consignor);
             consignorPhone.setText(o.phoneFrom);
             consigneeName.setText(o.consignee);
@@ -119,7 +122,7 @@ public class FragmentOrdersProcessing extends Fragment {
 
                 for (DataSnapshot snapshotUID : dataSnapshot.getChildren()) {//到UID這一層了
 
-                    Log.i("FATAL", snapshotUID.toString());
+                    //Log.i("FATAL", snapshotUID.toString());
                     Order order = snapshotUID.getValue(Order.class);
                     if (order.courierUid.equals(mAuth.getUid())) {
                         order.setMyDBRef(snapshotUID.getRef());
@@ -160,6 +163,28 @@ public class FragmentOrdersProcessing extends Fragment {
         listView.setEmptyView(empty);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener((AdapterView<?> parent, View v, int position, long id) -> {
+            Order order = adapter.getItem(position);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setIcon(R.mipmap.ic_launcher).setTitle("確認送達")
+                    .setMessage("確認送達 \n" + order.consignee + "\n" + order.addressOfConsignee)
+                    .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            order.doFinishAnOrderAndDeleteItsOriginData();
+                            Toast.makeText(getContext(), "確認送達", Toast.LENGTH_LONG).show();
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            dialogInterface.dismiss();
+                        }
+                    });
+            builder.create().show();
+        });
+
         return view;
     }
 

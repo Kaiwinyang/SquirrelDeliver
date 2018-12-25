@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +15,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squirrel.driver.Dao.Order;
 
@@ -41,7 +42,9 @@ public class FragmentOrdersComplete extends Fragment {
 
     ListView listView;
     OrderAdapter adapter;
-    DatabaseReference orderRef = Order.getMyOrdersDataRef();
+    DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("orders").child("finished order");
+    ;
+    final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     class OrderAdapter extends ArrayAdapter<Order> {
         private int mResourceId;
@@ -65,7 +68,7 @@ public class FragmentOrdersComplete extends Fragment {
             TextView consigneeAddress = view.findViewById(R.id.textViewAddressOfConsignee);
 
             Order o = getItem(position);
-            title.setText(o.startAt + "(長按刪除)");
+            title.setText(o.startAt);
             consignorName.setText(o.consignor);
             consignorPhone.setText(o.phoneFrom);
             consigneeName.setText(o.consignee);
@@ -121,7 +124,10 @@ public class FragmentOrdersComplete extends Fragment {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Order order = snapshot.getValue(Order.class);
-                    adapter.add(order);
+                    if (order.courierUid.equals(mAuth.getUid())) {
+                        order.setMyDBRef(snapshot.getRef());
+                        adapter.add(order);
+                    }
                 }
                 //adapter.notifyDataSetChanged();
 
@@ -156,26 +162,20 @@ public class FragmentOrdersComplete extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+////            listForOrderInSuspense.remove(position);
+////            adapter.notifyDataSetChanged();
+//            //orderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
+//
+//            orderRef.child(adapter.getItem(position).startAt).removeValue();
+//            return true;
+//        });
+//
+//        Log.v(Tool.TAG, "FragmentOrdersInSuspense:onActivityCreated");
+//    }
 
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
-//            listForOrderInSuspense.remove(position);
-//            adapter.notifyDataSetChanged();
-            //orderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
-
-            orderRef.child(adapter.getItem(position).startAt).removeValue();
-            return true;
-        });
-
-        Log.v(Tool.TAG, "FragmentOrdersInSuspense:onActivityCreated");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getActivity().setTitle(R.string.title_orders_complete);
-    }
 }
