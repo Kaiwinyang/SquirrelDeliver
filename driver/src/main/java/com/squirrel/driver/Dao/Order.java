@@ -1,13 +1,22 @@
 package com.squirrel.driver.Dao;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.squirrel.driver.Tool;
 
 @IgnoreExtraProperties
 public class Order {
+
+    public final static String[] STATUS = {"received", "accomplished"};
 
     public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption, startAt, processedAt, deliveredAt;
 
@@ -59,6 +68,36 @@ public class Order {
     public Task<Void> createNewOrder() {
         this.startAt = String.valueOf(System.currentTimeMillis());
         return Order.getMyOrdersDataRef().child(this.startAt).setValue(this);
+    }
+
+    public static void doReceiveAnOrderAndDeleteItsOriginData(DatabaseReference orderRef) {
+        orderRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Order order = mutableData.getValue(Order.class);
+                if (order == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                orderRef.removeValue();
+
+                order.courierUid = mAuth.getCurrentUser().getUid();
+                order.status = STATUS[0];
+
+                // Set value and report transaction success
+                //mutableData.setValue(order);
+                db.child("orders").child("received order").child(order.startAt).setValue(order);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d(Tool.TAG,
+                        "doReceiveAnOrderAndDeleteItsOriginData Transaction:onComplete:" + databaseError);
+            }
+        });
     }
 
 

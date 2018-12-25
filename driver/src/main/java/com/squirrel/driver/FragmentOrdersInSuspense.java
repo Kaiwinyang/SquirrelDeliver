@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,7 +63,7 @@ public class FragmentOrdersInSuspense extends Fragment {
             TextView consigneeAddress = view.findViewById(R.id.textViewAddressOfConsignee);
 
             Order o = getItem(position);
-            title.setText(o.startAt + "(長按刪除)");
+            title.setText(o.startAt + "(長按接受訂單)");
             consignorName.setText(o.consignor);
             consignorPhone.setText(o.phoneFrom);
             consigneeName.setText(o.consignee);
@@ -72,9 +71,9 @@ public class FragmentOrdersInSuspense extends Fragment {
             consigneeAddress.setText(o.addressOfConsignee);
             consignorAddress.setText(o.addressOfConsignor);
 
-            Button button = view.findViewById(R.id.button);
-            button.setTag(position);
-            button.setOnClickListener(v -> orderRef.child(adapter.getItem(position).startAt).removeValue());
+            //Button button = view.findViewById(R.id.button);
+            //button.setTag(position);
+            //button.setOnClickListener(v -> orderRef.child(adapter.getItem(position).startAt).removeValue());
 
             return view;
         }
@@ -115,11 +114,11 @@ public class FragmentOrdersInSuspense extends Fragment {
                 adapter.clear();
 
                 for (DataSnapshot snapshotUID : dataSnapshot.getChildren()) {//到UID這一層了
-                    for (DataSnapshot snapshotTimestamp : snapshotUID.getChildren()) {
-                        Order order = snapshotTimestamp.getValue(Order.class);
-                        order.setMyDBRef(snapshotTimestamp.getRef());
+
+                    Order order = snapshotUID.getValue(Order.class);
+                    order.setMyDBRef(snapshotUID.getRef());
                         adapter.add(order);
-                    }
+
                 }
                 //adapter.notifyDataSetChanged();
 
@@ -145,7 +144,7 @@ public class FragmentOrdersInSuspense extends Fragment {
 
         listView = view.findViewById(R.id.listView);
         ActivityMajor activity = (ActivityMajor) getActivity();
-        activity.setTitle(R.string.order_in_suspense);
+        activity.setTitle(R.string.title_orders_in_suspense);
 
 
         //必須這麼寫，否則白屏
@@ -162,15 +161,11 @@ public class FragmentOrdersInSuspense extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
-//            listForOrderInSuspense.remove(position);
-//            adapter.notifyDataSetChanged();
-            //orderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
-
-            // orderRef.child(adapter.getItem(position).startAt).removeValue();
-            adapter.getItem(position).getMyDBRef().removeValue();
+            Order.doReceiveAnOrderAndDeleteItsOriginData(adapter.getItem(position).getMyDBRef());
             return true;
         });
 
         Log.v(Tool.TAG, "FragmentOrdersInSuspense:onActivityCreated");
     }
+
 }

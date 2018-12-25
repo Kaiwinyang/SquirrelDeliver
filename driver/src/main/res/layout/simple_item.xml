@@ -99,6 +99,7 @@
             android:background="@drawable/trash2"
             android:focusable="false"
 
+            android:visibility="gone"
             app:layout_constraintBaseline_toBaselineOf="@+id/textViewAddressOfConsignee"
             app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>

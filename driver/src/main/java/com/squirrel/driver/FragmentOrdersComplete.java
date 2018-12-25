@@ -146,9 +146,6 @@ public class FragmentOrdersComplete extends Fragment {
         View view = inflater.inflate(R.layout.fragment_orders_in_suspense, container, false);
 
         listView = view.findViewById(R.id.listView);
-        ActivityMajor activity = (ActivityMajor) getActivity();
-        activity.setTitle(R.string.order_in_suspense);
-
 
         //必須這麼寫，否則白屏
         View empty = View.inflate(getContext(), R.layout.nothing_with_a_smile_face, null/*(ViewGroup) listView.getParent()*/);
@@ -175,4 +172,10 @@ public class FragmentOrdersComplete extends Fragment {
         Log.v(Tool.TAG, "FragmentOrdersInSuspense:onActivityCreated");
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getActivity().setTitle(R.string.title_orders_complete);
+    }
 }

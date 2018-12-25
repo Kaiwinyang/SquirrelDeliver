@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Tool {
+public class Tool {
     public static String TAG = "Banana";
 
     public AtomicBoolean isClicked = new AtomicBoolean(false);

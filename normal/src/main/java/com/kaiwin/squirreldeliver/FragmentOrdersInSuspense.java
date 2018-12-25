@@ -44,7 +44,7 @@ public class FragmentOrdersInSuspense extends Fragment {
 
     List<HashMap<String, String>> listForOrderInSuspense = new ArrayList<>();
 
-    DatabaseReference orderRef = Order.getOrdersDataRef();
+    DatabaseReference orderRef = Order.getMyOrdersDataRef();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
