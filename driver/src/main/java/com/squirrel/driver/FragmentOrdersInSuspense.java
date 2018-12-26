@@ -162,6 +162,10 @@ public class FragmentOrdersInSuspense extends Fragment {
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             Order.doReceiveAnOrderAndDeleteItsOriginData(adapter.getItem(position).getMyDBRef());
+            new AlertDialog.Builder(getActivity())
+                    .setMessage("訂單已接受")
+                    .create()
+                    .show();
             return true;
         });
 

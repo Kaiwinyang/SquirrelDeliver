@@ -176,6 +176,10 @@ public class FragmentOrdersInSuspense extends Fragment {
             //receivedOrderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
 
             orderRef.child(adapter.getItem(position).startAt).removeValue();
+            new AlertDialog.Builder(getActivity())
+                    .setMessage("訂單已刪除")
+                    .create()
+                    .show();
             return true;
         });
 

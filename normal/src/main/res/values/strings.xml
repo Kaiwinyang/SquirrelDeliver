@@ -80,6 +80,7 @@
     <string name="order_is_being_uploaded">訂單正在上傳</string>
     <string name="order_upload_failed">上傳失敗</string>
     <string name="upload_time_out">上傳超時，我們將在重新聯網后自動為你重新上傳</string>
+    <string name="deliver_fee_notification">外送費：50元</string>
 
     <!-- User Info Fragment relative -->
     <string name="user_name">昵稱</string>

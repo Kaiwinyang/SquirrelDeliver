@@ -173,7 +173,7 @@ public class FragmentOrdersProcessing extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             order.doFinishAnOrderAndDeleteItsOriginData();
-                            Toast.makeText(getContext(), "確認送達", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "確認送達", Toast.LENGTH_SHORT).show();
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
