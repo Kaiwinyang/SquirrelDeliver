@@ -47,9 +47,13 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && currentUser.isEmailVerified())
-            startActivity(new Intent(this, MajorActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        if (currentUser != null && currentUser.isEmailVerified()) {
+            Intent intent = new Intent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setClass(this, MajorActivity.class);
+            startActivity(intent);
+            finish();
+        }
         overridePendingTransition(0, 0);//cancel Transition Animation
 
         btnLogin.setOnClickListener(v -> {

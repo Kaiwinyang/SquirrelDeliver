@@ -43,6 +43,7 @@ public class MajorActivity extends AppCompatActivity
     FragmentCreateDeliverTask fragmentCreateDeliverTask = FragmentCreateDeliverTask.newInstance("", "");
     FragmentUserInformation fragmentUserInformation = new FragmentUserInformation();
     FragmentOrdersInSuspense fragmentOrdersInSuspense = FragmentOrdersInSuspense.newInstance("", "");
+    FragmentHistoryOfOrders fragmentHistoryOfOrders = new FragmentHistoryOfOrders();
 
     NavigationView navigationView;
     View navigationViewHeader;
@@ -226,6 +227,7 @@ public class MajorActivity extends AppCompatActivity
 
                 break;
             case R.id.nav_history_orders:
+                replaceFragment(fragmentHistoryOfOrders);
 
                 break;
             case R.id.nav_personal_info:

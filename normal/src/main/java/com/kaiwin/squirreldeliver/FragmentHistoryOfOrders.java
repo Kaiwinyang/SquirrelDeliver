@@ -1,11 +1,9 @@
 package com.kaiwin.squirreldeliver;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kaiwin.squirreldeliver.Dao.Order;
 
@@ -28,14 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentOrdersInSuspense#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentOrdersInSuspense extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class FragmentHistoryOfOrders extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -44,7 +36,8 @@ public class FragmentOrdersInSuspense extends Fragment {
 
     List<HashMap<String, String>> listForOrderInSuspense = new ArrayList<>();
 
-    DatabaseReference orderRef = Order.getMyOrdersDataRef();
+    DatabaseReference receivedOrderRef = FirebaseDatabase.getInstance().getReference().child("orders").child("received order");
+    DatabaseReference finishedOrderRef = FirebaseDatabase.getInstance().getReference().child("orders").child("finished order");
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -81,14 +74,15 @@ public class FragmentOrdersInSuspense extends Fragment {
             consignorAddress.setText(o.addressOfConsignor);
 
             Button button = view.findViewById(R.id.button);
-            button.setTag(position);
-            button.setOnClickListener(v -> orderRef.child(adapter.getItem(position).startAt).removeValue());
+            button.setVisibility(View.GONE);
+//            button.setTag(position);
+//            button.setOnClickListener(v -> receivedOrderRef.child(adapter.getItem(position).startAt).removeValue());
 
             return view;
         }
     }
 
-    public FragmentOrdersInSuspense() {
+    public FragmentHistoryOfOrders() {
         // Required empty public constructor
     }
 
@@ -101,8 +95,8 @@ public class FragmentOrdersInSuspense extends Fragment {
      * @return A new instance of fragment FragmentOrdersInSuspense.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentOrdersInSuspense newInstance(String param1, String param2) {
-        FragmentOrdersInSuspense fragment = new FragmentOrdersInSuspense();
+    public static FragmentHistoryOfOrders newInstance(String param1, String param2) {
+        FragmentHistoryOfOrders fragment = new FragmentHistoryOfOrders();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -120,7 +114,7 @@ public class FragmentOrdersInSuspense extends Fragment {
 
         adapter = new OrderAdapter(getActivity(), R.layout.simple_item);
 
-        orderRef.addValueEventListener(new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.clear();
@@ -143,7 +137,10 @@ public class FragmentOrdersInSuspense extends Fragment {
                         .create()
                         .show();
             }
-        });
+        };
+
+        receivedOrderRef.addValueEventListener(valueEventListener);
+        finishedOrderRef.addValueEventListener(valueEventListener);
     }
 
     @Override
@@ -155,7 +152,7 @@ public class FragmentOrdersInSuspense extends Fragment {
         listView = view.findViewById(R.id.listView);
         MajorActivity activity = (MajorActivity) getActivity();
         activity.setTitle(R.string.order_in_suspense);
-        //activity.fab.hide();
+        activity.fab.hide();
 
         //必須這麼寫，否則白屏
         View empty = View.inflate(getContext(), R.layout.nothing_with_a_smile_face, null/*(ViewGroup) listView.getParent()*/);
@@ -164,21 +161,5 @@ public class FragmentOrdersInSuspense extends Fragment {
 
         listView.setAdapter(adapter);
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
-//            listForOrderInSuspense.remove(position);
-//            adapter.notifyDataSetChanged();
-            //receivedOrderRef.child(listForOrderInSuspense.get(position).get(from[0])).removeValue();
-
-            orderRef.child(adapter.getItem(position).startAt).removeValue();
-            return true;
-        });
-
-        Log.v(Tool.TAG, "FragmentOrdersInSuspense:onActivityCreated");
     }
 }
