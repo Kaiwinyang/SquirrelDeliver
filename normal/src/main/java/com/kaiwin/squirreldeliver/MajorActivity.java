@@ -182,7 +182,12 @@ public class MajorActivity extends AppCompatActivity
                 super.onBackPressed();
                 fab.show();
             } else {
-                finish();
+                //                finish();
+                Intent intent = new Intent();
+                // 為Intent設定Action、Category屬性
+                intent.setAction(Intent.ACTION_MAIN);// "android.intent.action.MAIN"
+                intent.addCategory(Intent.CATEGORY_HOME); //"android.intent.category.HOME"
+                startActivity(intent);
             }
 
         }
