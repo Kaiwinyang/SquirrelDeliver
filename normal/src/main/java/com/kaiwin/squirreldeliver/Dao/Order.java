@@ -20,7 +20,7 @@ public class Order {
 
     public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption, startAt, processedAt, deliveredAt;
 
-    public String courierUid, status;
+    public String courierUid, courierEmail, status;
 
     public String addressOfConsignor, addressOfConsignee;
 
@@ -81,8 +81,10 @@ public class Order {
 
                 orderRef.removeValue();
 
+                order.courierEmail = mAuth.getCurrentUser().getEmail();
                 order.courierUid = mAuth.getCurrentUser().getUid();
                 order.status = STATUS[0];
+
 
                 // Set value and report transaction success
                 //mutableData.setValue(order);
@@ -100,5 +102,36 @@ public class Order {
         });
     }
 
+    public void doFinishAnOrderAndDeleteItsOriginData(/*DatabaseReference orderRef*/) {
+        DatabaseReference orderRef = this.myDBRef;
+        orderRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Order order = mutableData.getValue(Order.class);
+                if (order == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                orderRef.removeValue();
+
+                order.courierUid = mAuth.getCurrentUser().getUid();
+                order.courierEmail = mAuth.getCurrentUser().getEmail();
+                order.status = STATUS[1];
+
+                // Set value and report transaction success
+                //mutableData.setValue(order);
+                db.child("orders").child("finished order").child(order.startAt).setValue(order);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d(Tool.TAG,
+                        "doFinishAnOrderAndDeleteItsOriginData Transaction:onComplete:" + databaseError);
+            }
+        });
+    }
 
 }

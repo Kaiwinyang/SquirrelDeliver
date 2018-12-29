@@ -20,7 +20,7 @@ public class Order {
 
     public String uid, consignor, consignee, phoneFrom, phoneTo, selectedOption, startAt, processedAt, deliveredAt;
 
-    public String courierUid, status;
+    public String courierUid, courierEmail, status;
 
     public String addressOfConsignor, addressOfConsignee;
 
@@ -81,8 +81,10 @@ public class Order {
 
                 orderRef.removeValue();
 
+                order.courierEmail = mAuth.getCurrentUser().getEmail();
                 order.courierUid = mAuth.getCurrentUser().getUid();
                 order.status = STATUS[0];
+
 
                 // Set value and report transaction success
                 //mutableData.setValue(order);
@@ -113,6 +115,7 @@ public class Order {
                 orderRef.removeValue();
 
                 order.courierUid = mAuth.getCurrentUser().getUid();
+                order.courierEmail = mAuth.getCurrentUser().getEmail();
                 order.status = STATUS[1];
 
                 // Set value and report transaction success

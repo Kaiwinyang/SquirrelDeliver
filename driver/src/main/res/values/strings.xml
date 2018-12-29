@@ -95,4 +95,6 @@
     <!-- notification relative -->
     <string name="notification_title">未連接網路</string>
     <string name="notification_content_text">點擊跳轉到設定</string>
+
+    <string name="courier_email">送貨員郵箱 : </string>
 </resources>

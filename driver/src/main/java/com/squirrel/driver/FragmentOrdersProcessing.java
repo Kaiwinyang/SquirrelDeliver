@@ -67,6 +67,7 @@ public class FragmentOrdersProcessing extends Fragment {
             TextView consigneePhone = view.findViewById(R.id.textViewConsigneePhone);
             TextView consignorAddress = view.findViewById(R.id.textViewAddressOfConsignor);
             TextView consigneeAddress = view.findViewById(R.id.textViewAddressOfConsignee);
+            TextView courierEmail = view.findViewById(R.id.textViewCourierEmail);
 
             Order o = getItem(position);
             title.setText(o.startAt + "(點擊確認送達)");
@@ -76,6 +77,7 @@ public class FragmentOrdersProcessing extends Fragment {
             consigneePhone.setText(o.phoneTo);
             consigneeAddress.setText(o.addressOfConsignee);
             consignorAddress.setText(o.addressOfConsignor);
+            courierEmail.setText(o.courierEmail);
 
             //Button button = view.findViewById(R.id.button);
             //button.setTag(position);
@@ -113,7 +115,7 @@ public class FragmentOrdersProcessing extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        adapter = new OrderAdapter(getActivity(), R.layout.simple_item);
+        adapter = new OrderAdapter(getActivity(), R.layout.simple_item_with_courier_email);
 
         orderRef.addValueEventListener(new ValueEventListener() {
             @Override
